@@ -1,8 +1,7 @@
 package guru.springframework.spring6restmvc.controller;
 
-import guru.springframework.spring6restmvc.model.Customer;
+import guru.springframework.spring6restmvc.model.CustomerDTO;
 import guru.springframework.spring6restmvc.services.CustomerService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -24,19 +23,19 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Customer> listCustomers() {
+    public List<CustomerDTO> listCustomers() {
         return customerService.listCustomers();
     }
 
     @RequestMapping(value = CUSTOMER_PATH_ID, method = RequestMethod.GET)
-    public Customer getCustomerById(@PathVariable("customerId")UUID customerId){
+    public CustomerDTO getCustomerById(@PathVariable("customerId")UUID customerId){
         return customerService.getCustomerById(customerId).orElseThrow(NotFoundException::new);
     }
 
     @PostMapping
-    public ResponseEntity handlePost(@RequestBody Customer customer) {
+    public ResponseEntity handlePost(@RequestBody CustomerDTO customer) {
 
-        Customer savedCustomer = customerService.saveNewCustomer(customer);
+        CustomerDTO savedCustomer = customerService.saveNewCustomer(customer);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", CUSTOMER_PATH +"/" + savedCustomer.getId().toString());
@@ -45,7 +44,7 @@ public class CustomerController {
     }
 
     @PutMapping(CUSTOMER_PATH_ID)
-    public ResponseEntity updateCustomerById(@PathVariable("customerId") UUID customerId, @RequestBody Customer customer) {
+    public ResponseEntity updateCustomerById(@PathVariable("customerId") UUID customerId, @RequestBody CustomerDTO customer) {
 
         customerService.updateCustomerById(customerId, customer);
 
@@ -61,7 +60,7 @@ public class CustomerController {
     }
 
     @PatchMapping(CUSTOMER_PATH_ID)
-    public ResponseEntity updateCustomerPatchById(@PathVariable("customerId") UUID customerId, @RequestBody Customer customer) {
+    public ResponseEntity updateCustomerPatchById(@PathVariable("customerId") UUID customerId, @RequestBody CustomerDTO customer) {
 
         customerService.patchCustomerById(customerId, customer);
 
