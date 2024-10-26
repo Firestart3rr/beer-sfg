@@ -35,7 +35,7 @@ public class BeerController {
         return beerService.getBeerById(beerId).orElseThrow(NotFoundException::new);
     }
 
-    @PostMapping
+    @PostMapping(BEER_PATH)
 //    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity handlePost(@RequestBody BeerDTO beer) {
 

@@ -32,7 +32,7 @@ public class CustomerController {
         return customerService.getCustomerById(customerId).orElseThrow(NotFoundException::new);
     }
 
-    @PostMapping
+    @PostMapping(CUSTOMER_PATH)
     public ResponseEntity handlePost(@RequestBody CustomerDTO customer) {
 
         CustomerDTO savedCustomer = customerService.saveNewCustomer(customer);
