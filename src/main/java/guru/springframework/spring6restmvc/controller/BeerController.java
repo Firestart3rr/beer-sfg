@@ -36,7 +36,6 @@ public class BeerController {
     }
 
     @PostMapping(BEER_PATH)
-//    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity handlePost(@RequestBody BeerDTO beer) {
 
         BeerDTO savedBeer = beerService.saveNewBeer(beer);
