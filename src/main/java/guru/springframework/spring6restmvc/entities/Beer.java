@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
@@ -23,33 +22,34 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Beer {
 
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @UuidGenerator
+	@Id
+	@GeneratedValue(generator = "UUID")
+	@UuidGenerator
 	@JdbcTypeCode(SqlTypes.CHAR)
-    @Column(length = 36, columnDefinition = "varchar", updatable = false, nullable = false)
-    private UUID id;
+	@Column(length = 36, columnDefinition = "varchar", updatable = false, nullable = false)
+	private UUID id;
 
-    @Version
-    private Integer version;
+	@Version
+	private Integer version;
 
-    @NotNull
-    @NotBlank
-    @Size(max = 50)
-    @Column(length = 50)
-    private String beerName;
+	@NotNull
+	@NotBlank
+	@Size(max = 50)
+	@Column(length = 50)
+	private String beerName;
 
-    @NotNull
-    private BeerStyle beerStyle;
+	@NotNull
+	@JdbcTypeCode(value = SqlTypes.SMALLINT)
+	private BeerStyle beerStyle;
 
-    @NotNull
-    @NotBlank
-    @Size(max = 255)
-    private String upc;
-    private Integer quantityOnHand;
+	@NotNull
+	@NotBlank
+	@Size(max = 255)
+	private String upc;
+	private Integer quantityOnHand;
 
-    @NotNull
-    private BigDecimal price;
-    private LocalDateTime createdDate;
-    private LocalDateTime updateDate;
+	@NotNull
+	private BigDecimal price;
+	private LocalDateTime createdDate;
+	private LocalDateTime updateDate;
 }
